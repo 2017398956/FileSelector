@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.zlylib.fileselectorlib.FileSelector;
@@ -15,8 +16,7 @@ import java.util.List;
 
 public class MainFragmentActivity extends FragmentActivity {
 
-    private FileSelectorFragment fileSelectorFragment ;
-    private boolean isShowingFileSelectorFragment = false;
+    private FileSelectorFragment fileSelectorFragment;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainFragmentActivity.class);
@@ -29,16 +29,16 @@ public class MainFragmentActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_container , new OneFragment())
+                .add(R.id.fl_container, new OneFragment())
                 .addToBackStack(OneFragment.class.getSimpleName())
                 .commitAllowingStateLoss();
     }
 
-    public void showFileSelectorFragment(){
-        if(fileSelectorFragment == null){
+    public void showFileSelectorFragment() {
+        if (fileSelectorFragment == null) {
             fileSelectorFragment = new FileSelectorFragment();
             fileSelectorFragment.setOnFilesSelectedListener(filePaths -> {
-                Log.d("NFL" , "paths:" + filePaths);
+                Log.d("NFL", "paths:" + filePaths);
                 getSupportFragmentManager().beginTransaction().remove(fileSelectorFragment)
                         .commitAllowingStateLoss();
                 fileSelectorFragment = null;
@@ -54,24 +54,31 @@ public class MainFragmentActivity extends FragmentActivity {
             ;
         }
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fl_container , fileSelectorFragment)
+                .add(R.id.fl_container, fileSelectorFragment)
                 .addToBackStack(FileSelectorFragment.class.getSimpleName())
                 .commitAllowingStateLoss();
-        isShowingFileSelectorFragment = true;
     }
 
     @Override
     public void onBackPressed() {
-        if (isShowingFileSelectorFragment){
-            if (fileSelectorFragment.onBackPressed()){
+        if (isShowingFileSelectorFragment()) {
+            if (fileSelectorFragment.onBackPressed()) {
                 // do nothing
-            }else{
+            } else {
                 // FileSelectorFragment 没有触发回退事件，则调用 activity 的回退事件，该事件会使 FileSelectorFragment 被销毁
                 super.onBackPressed();
-                isShowingFileSelectorFragment = false ;
             }
-        }else{
+        } else {
             super.onBackPressed();
+        }
+    }
+
+    private boolean isShowingFileSelectorFragment(){
+        List<Fragment> fragments = getSupportFragmentManager().getFragments() ;
+        if (fragments != null && !fragments.isEmpty()){
+            return fragments.get(fragments.size() - 1) instanceof FileSelectorFragment ;
+        }else {
+            return false;
         }
     }
 }
