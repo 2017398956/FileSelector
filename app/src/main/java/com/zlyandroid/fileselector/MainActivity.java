@@ -1,18 +1,14 @@
 package com.zlyandroid.fileselector;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zlylib.fileselectorlib.FileSelector;
-import com.zlylib.fileselectorlib.bean.EssFile;
 import com.zlylib.fileselectorlib.utils.Const;
 import com.zlylib.mypermissionlib.RequestListener;
 
@@ -41,55 +37,20 @@ public class MainActivity extends AppCompatActivity {
         tv_onlyMP4 = findViewById(R.id.tv_onlyMP4);
         tv_onlyIMG = findViewById(R.id.tv_onlyIMG);
         tv_openColor = findViewById(R.id.tv_openColor);
-        tv_fragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(0);
-            }
-        });
-        tv_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(1);
-            }
-        });
-        tv_showFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(2);
-            }
-        });
-        tv_onlyFolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(3);
-            }
-        });
-        tv_onlyMP4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(4);
-            }
-        });
-        tv_onlyIMG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(5);
-            }
-        });
-        tv_openColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downPermission(6);
-            }
-        });
+        tv_fragment.setOnClickListener(v -> downPermission(0));
+        tv_open.setOnClickListener(v -> downPermission(1));
+        tv_showFolder.setOnClickListener(v -> downPermission(2));
+        tv_onlyFolder.setOnClickListener(v -> downPermission(3));
+        tv_onlyMP4.setOnClickListener(v -> downPermission(4));
+        tv_onlyIMG.setOnClickListener(v -> downPermission(5));
+        tv_openColor.setOnClickListener(v -> downPermission(6));
     }
     private void downPermission(final int i) {
          PermissionUtils.request(new RequestListener() {
             @Override
             public void onSuccess() {
                 if(i == 0){
-                    MainFragment.start(getApplicationContext());
+                    MainFragmentActivity.start(getApplicationContext());
                 }else if(i == 1){
                     openFileSelector();
                 }else if(i == 2){

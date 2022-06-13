@@ -100,6 +100,9 @@ public final class SelectCreator {
         return this;
     }
 
+    /**
+     * 通过 {@link FileSelectorActivity} 选择文件
+     */
     public void start() {
         final Context activity = filePicker.getActivity();
         if (activity == null) {
@@ -114,5 +117,10 @@ public final class SelectCreator {
             ((AppCompatActivity)activity).startActivityForResult(intent, selectOptions.request_code);
         }
     }
+
+    /**
+     * 不需要立即打开文件选择界面，只是表明文件选择的参数已经配置完成
+     */
+    public void done(){}
 
 }

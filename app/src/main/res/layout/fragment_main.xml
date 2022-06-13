@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-     >
-    <fragment
-        android:name="com.zlyandroid.fileselector.OneFragment"
-        android:id="@+id/right_fragment"
+    android:orientation="vertical">
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/right_fragment"-->
+    <!--        android:name="com.zlyandroid.fileselector.OneFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
+
+    <!--        <fragment-->
+    <!--            android:id="@+id/f_select_file"-->
+    <!--            android:name="com.zlylib.fileselectorlib.ui.FileSelectorFragment"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent" />-->
+
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
